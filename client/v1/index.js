@@ -92,8 +92,11 @@ for (var i = 0; i < sortedDate.length; i++) { console.log(sortedPrice[i]) }
 
 
 // 🎯 TODO: Filter a specific price range
+var priceRange = []
 // 1. Filter the list of products between 50€ and 100€
+marketplace.forEach(product => { if (product.price > 50 && product.price < 100) { priceRange.push(product) } })
 // 2. Log the list
+for (var i = 0; i < priceRange.length; i++) { console.log(priceRange[i]) }
 
 
 // 🎯 TODO: Average Basket
