@@ -100,11 +100,12 @@ for (var i = 0; i < priceRange.length; i++) { console.log(priceRange[i]) };
 
 
 // 🎯 TODO: Average Basket
-var total = 0
-marketplace.forEach(product => total = total + product.price)
+var total = 0;
+marketplace.forEach(product => total = total + product.price);
 // 1. Determine the average basket of the marketplace
+var average = total / marketplace.length;
 // 2. Log the average
-
+console.log(average);
 
 
 
@@ -129,6 +130,8 @@ marketplace.forEach(product => total = total + product.price)
 //   'brand-name-n': [{...}, {...}, ..., {...}],
 // };
 //
+
+const brand = {}
 // 2. Log the variable
 // 3. Log the number of products by brands
 
