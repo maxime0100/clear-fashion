@@ -56,7 +56,7 @@ console.log(number);
 // 🎯 TODO: Brands name
 // 1. Create a variable and assign it the list of brands name only
 const brandName = [];
-for (let i = 0; i < marketplace.length; i++)
+for (var i = 0; i < marketplace.length; i++)
 {
     brandName.push(marketplace[i].brand)
 }
@@ -69,14 +69,26 @@ console.log(brandUnique.length);
 
 // 🎯 TODO: Sort by price
 // 1. Create a function to sort the marketplace products by price
+marketplace.sort(function (a, b) {
+    return a.price - b.price;
+});
 // 2. Create a variable and assign it the list of products by price from lowest to highest
+var sortedPrice = marketplace.sort(function (a, b) {
+    return a.price - b.price;
+});
 // 3. Log the variable
-
+for (var i = 0; i < sortedPrice.length; i++) { console.log(sortedPrice[i]) }
 
 // 🎯 TODO: Sort by date
 // 1. Create a function to sort the marketplace objects by products date
 // 2. Create a variable and assign it the list of products by date from recent to old
+var sortedDate = marketplace;
+sortedDate.map(product => product.date = new Date(product.date)) // tranform the date value from a string to a date 
+sortedDate = sortedDate.sort(function (a, b) {
+    return a.date - b.date;
+}); // sort by date
 // 3. Log the variable
+for (var i = 0; i < sortedDate.length; i++) { console.log(sortedPrice[i]) }
 
 
 // 🎯 TODO: Filter a specific price range
