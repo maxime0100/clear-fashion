@@ -59,8 +59,8 @@ const brandName = [];
 for (var i = 0; i < marketplace.length; i++)
 {
     brandName.push(marketplace[i].brand)
-}
-var brandUnique = new Set(brandName)
+};
+var brandUnique = new Set(brandName);
 // 2. Log the variable
 console.log(brandUnique);
 // 3. Log how many brands we have
@@ -77,29 +77,31 @@ var sortedPrice = marketplace.sort(function (a, b) {
     return a.price - b.price;
 });
 // 3. Log the variable
-for (var i = 0; i < sortedPrice.length; i++) { console.log(sortedPrice[i]) }
+for (var i = 0; i < sortedPrice.length; i++) { console.log(sortedPrice[i]) };
 
 // 🎯 TODO: Sort by date
 // 1. Create a function to sort the marketplace objects by products date
 // 2. Create a variable and assign it the list of products by date from recent to old
 var sortedDate = marketplace;
-sortedDate.map(product => product.date = new Date(product.date)) // tranform the date value from a string to a date 
+sortedDate.map(product => product.date = new Date(product.date)); // tranform the date value from a string to a date
 sortedDate = sortedDate.sort(function (a, b) {
     return a.date - b.date;
 }); // sort by date
 // 3. Log the variable
-for (var i = 0; i < sortedDate.length; i++) { console.log(sortedPrice[i]) }
+for (var i = 0; i < sortedDate.length; i++) { console.log(sortedPrice[i]) };
 
 
 // 🎯 TODO: Filter a specific price range
-var priceRange = []
+var priceRange = [];
 // 1. Filter the list of products between 50€ and 100€
-marketplace.forEach(product => { if (product.price > 50 && product.price < 100) { priceRange.push(product) } })
+marketplace.forEach(product => { if (product.price > 50 && product.price < 100) { priceRange.push(product) } });
 // 2. Log the list
-for (var i = 0; i < priceRange.length; i++) { console.log(priceRange[i]) }
+for (var i = 0; i < priceRange.length; i++) { console.log(priceRange[i]) };
 
 
 // 🎯 TODO: Average Basket
+var total = 0
+marketplace.forEach(product => total = total + product.price)
 // 1. Determine the average basket of the marketplace
 // 2. Log the average
 
