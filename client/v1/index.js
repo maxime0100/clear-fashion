@@ -55,8 +55,16 @@ console.log(number);
 
 // 🎯 TODO: Brands name
 // 1. Create a variable and assign it the list of brands name only
+const brandName = [];
+for (let i = 0; i < marketplace.length; i++)
+{
+    brandName.push(marketplace[i].brand)
+}
+var brandUnique = new Set(brandName)
 // 2. Log the variable
+console.log(brandUnique);
 // 3. Log how many brands we have
+console.log(brandUnique.length);
 
 
 // 🎯 TODO: Sort by price
