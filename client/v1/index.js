@@ -49,7 +49,7 @@ console.log(cheapest_T);
 
 // 🎯 TODO: Number of products
 // 1. Create a variable and assign it the number of products
-const number = marketplace.length;
+var number = marketplace.length;
 // 2. Log the variable
 console.log(number);
 
@@ -60,7 +60,7 @@ for (var i = 0; i < marketplace.length; i++)
 {
     brandName.push(marketplace[i].brand)
 };
-var brandUnique = new Set(brandName);
+const brandUnique = new Set(brandName);
 // 2. Log the variable
 console.log(brandUnique);
 // 3. Log how many brands we have
@@ -73,7 +73,7 @@ marketplace.sort(function (a, b) {
     return a.price - b.price;
 });
 // 2. Create a variable and assign it the list of products by price from lowest to highest
-var sortedPrice = marketplace.sort(function (a, b) {
+let sortedPrice = marketplace.sort(function (a, b) {
     return a.price - b.price;
 });
 // 3. Log the variable
@@ -82,7 +82,7 @@ for (var i = 0; i < sortedPrice.length; i++) { console.log(sortedPrice[i]) };
 // 🎯 TODO: Sort by date
 // 1. Create a function to sort the marketplace objects by products date
 // 2. Create a variable and assign it the list of products by date from recent to old
-var sortedDate = marketplace;
+let sortedDate = marketplace;
 sortedDate.map(product => product.date = new Date(product.date)); // tranform the date value from a string to a date
 sortedDate = sortedDate.sort(function (a, b) {
     return a.date - b.date;
@@ -92,7 +92,7 @@ for (var i = 0; i < sortedDate.length; i++) { console.log(sortedPrice[i]) };
 
 
 // 🎯 TODO: Filter a specific price range
-var priceRange = [];
+let priceRange = [];
 // 1. Filter the list of products between 50€ and 100€
 marketplace.forEach(product => { if (product.price > 50 && product.price < 100) { priceRange.push(product) } });
 // 2. Log the list
@@ -121,7 +121,7 @@ console.log(average);
 // 1. Create an object called `brands` to manipulate products by brand name
 // The key is the brand name
 // The value is the array of products
-//
+
 // Example:
 // const brands = {
 //   'brand-name-1': [{...}, {...}, ..., {...}],
@@ -129,12 +129,51 @@ console.log(average);
 //   ....
 //   'brand-name-n': [{...}, {...}, ..., {...}],
 // };
-//
 
-const brand = {}
+// We have already seen that there are 5 diferent brands, stored in the variable brandUnique :
+// adresse, loom, aatise, 1083, dedicated
+const brandAdresse = [];
+const brandLoom = [];
+const brandAatise = [];
+const brand1083 = [];
+const brandDedicated = [];
+
+marketplace.forEach(product => {
+    switch (product.brand) {
+        case 'adresse':
+            brandAdresse.push(product);
+            break;
+        case 'loom':
+            brandLoom.push(product);
+            break;
+        case 'aatise':
+            brandAatise.push(product);
+            break;
+        case '1083':
+            brand1083.push(product);
+            break;
+        case 'dedicated':
+            brandDedicated.push(product);
+            break;
+        default:
+            break;
+    }
+})
+
+const brands = {
+    'adresse': brandAdresse,
+    'loom': brandLoom,
+    'aatise': brandAatise,
+    '1083': brand1083,
+    'dedicated': brandDedicated
+}
+
 // 2. Log the variable
+console.log(brands)
 // 3. Log the number of products by brands
-
+for (var [key, value] of Object.entries(brands)) {
+    console.log('The number of product of the brand', key, 'is', value.length);
+}
 
 // 🎯 TODO: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
