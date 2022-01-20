@@ -177,13 +177,45 @@ for (var [key, value] of Object.entries(brands)) {
 
 // 🎯 TODO: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
+let adresseByPrice = brandAdresse.sort((a, b) => { return b.price - a.price });
+let loomByPrice = brandLoom.sort((a, b) => { return b.price - a.price });
+let aatiseByPrice = brandAatise.sort((a, b) => { return b.price - a.price });
+let brand1083ByPrice = brand1083.sort((a, b) => { return b.price - a.price });
+let dedicatedByPrice = brandDedicated.sort((a, b) => { return b.price - a.price });
 // 2. Log the sort
+console.log(adresseByPrice, loomByPrice, aatiseByPrice, brand1083ByPrice, dedicatedByPrice);
 
 
 // 🎯 TODO: Sort by date for each brand
 // 1. For each brand, sort the products by date, from old to recent
-// 2. Log the sort
+let adresseByDate = brandAdresse.sort((a, b) => {
+    a.date = new Date(a.date);
+    b.date = new Date(b.date);
+    return b.date - a.date
+});
+let loomByDate = brandLoom.sort((a, b) => {
+    a.date = new Date(a.date);
+    b.date = new Date(b.date);
+    return b.date - a.date
+});
+let aatiseByDate = brandAatise.sort((a, b) => {
+    a.date = new Date(a.date);
+    b.date = new Date(b.date);
+    return b.date - a.date
+});
+let brand1083ByDate = brand1083.sort((a, b) => {
+    a.date = new Date(a.date);
+    b.date = new Date(b.date);
+    return b.date - a.date
+});
+let dedicatedByDate = brandDedicated.sort((a, b) => {
+    a.date = new Date(a.date);
+    b.date = new Date(b.date);
+    return b.date - a.date
+});
 
+// 2. Log the sort
+console.log(adresseByDate, loomByDate, aatiseByDate, brand1083ByDate, dedicatedByDate);
 
 
 
