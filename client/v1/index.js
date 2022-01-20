@@ -231,7 +231,11 @@ console.log(adresseByDate, loomByDate, aatiseByDate, brand1083ByDate, dedicatedB
 // 1. Compute the p90 price value of each brand
 // The p90 value (90th percentile) is the lower value expected to be exceeded in 90% of the products
 
-
+for (var [key, value] of Object.entries(brands)) {
+    var p90 = Math.floor(9 / 10 * value.length); // give the position of the 90th percentile 
+    var sortedList = value.sort((a, b) => {a.price - b.price}) // sort the list by price from lowest to highest
+    console.log(key, ':', sortedList[p90].price)
+}
 
 
 
