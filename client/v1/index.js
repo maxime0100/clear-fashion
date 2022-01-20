@@ -323,7 +323,7 @@ COTELE_PARIS.forEach(product => {
 // 🎯 TODO: Reasonable price
 // // 1. Log if coteleparis is a reasonable price shop (true or false)
 // // A reasonable price if all the products are less than 100€
-var reasonable = true;
+let reasonable = true;
 COTELE_PARIS.forEach(product => {
     if (product.price >= 100) {
         reasonable = false;
@@ -334,11 +334,22 @@ console.log(reasonable);
 // 🎯 TODO: Find a specific product
 // 1. Find the product with the uuid `b56c6d88-749a-5b4c-b571-e5b5c6483131`
 // 2. Log the product
-
+COTELE_PARIS.forEach(product => {
+    if (product.uuid == 'b56c6d88-749a-5b4c-b571-e5b5c6483131') {
+        console.log(product);
+    }
+})
 
 // 🎯 TODO: Delete a specific product
 // 1. Delete the product with the uuid `b56c6d88-749a-5b4c-b571-e5b5c6483131`
 // 2. Log the new list of product
+let COTELE_PARIS2 = COTELE_PARIS;
+for (var i = 0; i < COTELE_PARIS2.length; i++) {
+    if (COTELE_PARIS2[i].uuid == 'b56c6d88-749a-5b4c-b571-e5b5c6483131') {
+        COTELE_PARIS2.splice(i, 1);
+    }
+}
+console.log(COTELE_PARIS2);
 
 // 🎯 TODO: Save the favorite product
 let blueJacket = {
@@ -354,7 +365,9 @@ let jacket = blueJacket;
 jacket.favorite = true;
 
 // 1. Log `blueJacket` and `jacket` variables
+console.log(blueJacket, jacket);
 // 2. What do you notice?
+// the new element "favorite" is also add to blueJacket
 
 blueJacket = {
   'link': 'https://coteleparis.com/collections/tous-les-produits-cotele/products/la-veste-bleu-roi',
@@ -364,7 +377,7 @@ blueJacket = {
 
 // 3. Update `jacket` property with `favorite` to true WITHOUT changing blueJacket properties
 
-
+// To do this, I simply make the variable blueJacket a constant.
 
 
 
