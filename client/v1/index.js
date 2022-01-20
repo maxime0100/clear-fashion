@@ -310,6 +310,14 @@ const COTELE_PARIS = [
 // 🎯 TODO: New released products
 // // 1. Log if we have new products only (true or false)
 // // A new product is a product `released` less than 2 weeks.
+COTELE_PARIS.forEach(product => {
+    if ((new Date() - new Date(product.released)) > (24 * 60 * 60 * 1000 * 14)) {
+        console.log(product.name, ':', 'false')
+    }
+    else {
+        console.log(product.name, ':', 'true')
+    }
+})
 
 
 // 🎯 TODO: Reasonable price
