@@ -191,3 +191,8 @@ document.getElementById('recent').addEventListener('click', function () {
     currentProducts = currentProducts.filter(item => item.new == true);
     render(currentProducts, currentPagination);
 })
+
+document.getElementById('reasonable').addEventListener('click', function () {
+    currentProducts = currentProducts.filter(item => item.price <= 50);
+    render(currentProducts, currentPagination);
+})
