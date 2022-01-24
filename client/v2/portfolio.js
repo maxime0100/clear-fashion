@@ -177,4 +177,17 @@ selectBrand.addEventListener('change', async (event) => {
         setCurrentProducts(products);
         render(currentProducts, currentPagination);
     }
+});
+
+document.getElementById('recent').addEventListener('click', function () {
+    currentProducts.forEach(product => {
+        if ((new Date() - new Date(product.released)) > (24 * 60 * 60 * 1000 * 14)) {
+            product.new = false;
+        }
+        else {
+            product.new = true;
+        }
+    })
+    currentProducts = currentProducts.filter(item => item.new == true);
+    render(currentProducts, currentPagination);
 })
