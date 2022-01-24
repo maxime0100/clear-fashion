@@ -16,9 +16,9 @@ const spanNbProducts = document.querySelector('#nbProducts');
  * @param {Array} result - products to display
  * @param {Object} meta - pagination meta info
  */
-const setCurrentProducts = ({result, meta}) => {
-  currentProducts = result;
-  currentPagination = meta;
+const setCurrentProducts = ({ result, meta }) => {
+    currentProducts = result;
+    currentPagination = meta;
 };
 
 /**
@@ -28,22 +28,22 @@ const setCurrentProducts = ({result, meta}) => {
  * @return {Object}
  */
 const fetchProducts = async (page = 1, size = 12) => {
-  try {
-    const response = await fetch(
-      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
-    );
-    const body = await response.json();
+    try {
+        const response = await fetch(
+            `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
+        );
+        const body = await response.json();
 
-    if (body.success !== true) {
-      console.error(body);
-      return {currentProducts, currentPagination};
+        if (body.success !== true) {
+            console.error(body);
+            return { currentProducts, currentPagination };
+        }
+
+        return body.data;
+    } catch (error) {
+        console.error(error);
+        return { currentProducts, currentPagination };
     }
-
-    return body.data;
-  } catch (error) {
-    console.error(error);
-    return {currentProducts, currentPagination};
-  }
 };
 
 /**
@@ -51,24 +51,24 @@ const fetchProducts = async (page = 1, size = 12) => {
  * @param  {Array} products
  */
 const renderProducts = products => {
-  const fragment = document.createDocumentFragment();
-  const div = document.createElement('div');
-  const template = products
-    .map(product => {
-      return `
+    const fragment = document.createDocumentFragment();
+    const div = document.createElement('div');
+    const template = products
+        .map(product => {
+            return `
       <div class="product" id=${product.uuid}>
         <span>${product.brand}</span>
         <a href="${product.link}">${product.name}</a>
         <span>${product.price}</span>
       </div>
     `;
-    })
-    .join('');
+        })
+        .join('');
 
-  div.innerHTML = template;
-  fragment.appendChild(div);
-  sectionProducts.innerHTML = '<h2>Products</h2>';
-  sectionProducts.appendChild(fragment);
+    div.innerHTML = template;
+    fragment.appendChild(div);
+    sectionProducts.innerHTML = '<h2>Products</h2>';
+    sectionProducts.appendChild(fragment);
 };
 
 /**
@@ -76,14 +76,14 @@ const renderProducts = products => {
  * @param  {Object} pagination
  */
 const renderPagination = pagination => {
-  const {currentPage, pageCount} = pagination;
-  const options = Array.from(
-    {'length': pageCount},
-    (value, index) => `<option value="${index + 1}">${index + 1}</option>`
-  ).join('');
+    const { currentPage, pageCount } = pagination;
+    const options = Array.from(
+        { 'length': pageCount },
+        (value, index) => `<option value="${index + 1}">${index + 1}</option>`
+    ).join('');
 
-  selectPage.innerHTML = options;
-  selectPage.selectedIndex = currentPage - 1;
+    selectPage.innerHTML = options;
+    selectPage.selectedIndex = currentPage - 1;
 };
 
 /**
@@ -91,15 +91,15 @@ const renderPagination = pagination => {
  * @param  {Object} pagination
  */
 const renderIndicators = pagination => {
-  const {count} = pagination;
+    const { count } = pagination;
 
-  spanNbProducts.innerHTML = count;
+    spanNbProducts.innerHTML = count;
 };
 
 const render = (products, pagination) => {
-  renderProducts(products);
-  renderPagination(pagination);
-  renderIndicators(pagination);
+    renderProducts(products);
+    renderPagination(pagination);
+    renderIndicators(pagination);
 };
 
 /**
@@ -111,13 +111,19 @@ const render = (products, pagination) => {
  * @type {[type]}
  */
 selectShow.addEventListener('change', event => {
-  fetchProducts(currentPagination.currentPage, parseInt(event.target.value))
-    .then(setCurrentProducts)
-    .then(() => render(currentProducts, currentPagination));
+    fetchProducts(currentPagination.currentPage, parseInt(event.target.value))
+        .then(setCurrentProducts)
+        .then(() => render(currentProducts, currentPagination));
 });
 
 document.addEventListener('DOMContentLoaded', () =>
-  fetchProducts()
-    .then(setCurrentProducts)
-    .then(() => render(currentProducts, currentPagination))
+    fetchProducts()
+        .then(setCurrentProducts)
+        .then(() => render(currentProducts, currentPagination))
 );
+
+
+selectPage.addEventListener('change', event => {
+    fetchProducts(parseInt(event.target.value), parseInt(selectShow.value))
+        .then(setCurrentProducts)
+        .then(() => render(currentProducts, currentPagination));});
