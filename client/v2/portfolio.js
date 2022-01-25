@@ -12,6 +12,10 @@ const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
 const selectBrand = document.querySelector('#brand-select');
 const selectSort = document.querySelector('#sort-select');
+const spanNbNewProduct = document.querySelector('#nbNewProducts');
+const spanp50 = document.querySelector('#p50');
+const spanp90 = document.querySelector('#p90');
+const spanp95 = document.querySelector('#p95');
 
 /**
  * Set global value
@@ -114,16 +118,46 @@ let renderBrand = products => {
  * Render page selector
  * @param  {Object} pagination
  */
-const renderIndicators = pagination => {
+const renderIndicators = (pagination, products) => {
+
+    // Number of products
     const { count } = pagination;
 
     spanNbProducts.innerHTML = count;
+
+    // Number of new products per page
+    var new_products = products
+    new_products.forEach(product => {
+        if ((new Date() - new Date(product.released)) > (24 * 60 * 60 * 1000 * 14)) {
+            product.new = false;
+        }
+        else {
+            product.new = true;
+        }
+    })
+    new_products = new_products.filter(item => item.new == true);
+    spanNbNewProduct.innerHTML = new_products.length;
+
+
+    var sortedList = products.sort((a, b) => { return a.price - b.price });
+    // p50 price value per page
+    var p50 = Math.floor(1 / 2 * products.length);
+    spanp50.innerHTML = sortedList[p50].price;
+
+    // p90 price value per page
+    var p90 = Math.floor(9 / 10 * products.length);
+    spanp90.innerHTML = sortedList[p90].price;
+
+    // p95 price value per page
+    var p95 = Math.floor(95 / 100 * products.length);
+    spanp95.innerHTML = sortedList[p95].price;
 };
+
 
 const render = (products, pagination) => {
     renderProducts(products);
     renderPagination(pagination);
-    renderIndicators(pagination);
+    renderIndicators(pagination, products);
     renderBrand(products);
 };
 
@@ -136,17 +170,14 @@ const render = (products, pagination) => {
  * Select the number of products to display
  * @type {[type]}
  */
+// select Show
 selectShow.addEventListener('change', event => {
     fetchProducts(1, parseInt(event.target.value))
         .then(setCurrentProducts)
         .then(() => render(currentProducts, currentPagination));
     selectSort.value = "...";
 });
-/*selectShow.addEventListener('change', async (event) => {
-    const products = await fetchProducts(currentPagination.currentPage, parseInt(event.target.value));
-    setCurrentProducts(products);
-    render(currentProducts, currentPagination)
-});*/
+
 
 document.addEventListener('DOMContentLoaded', () =>
     fetchProducts()
@@ -154,12 +185,7 @@ document.addEventListener('DOMContentLoaded', () =>
         .then(() => render(currentProducts, currentPagination))
 );
 
-
-/*selectPage.addEventListener('change', event => {
-    fetchProducts(parseInt(event.target.value), parseInt(selectShow.value))
-        .then(setCurrentProducts)
-        .then(() => render(currentProducts, currentPagination));});*/
-
+// Select Page 
 selectPage.addEventListener('change', async (event) => {
     const products = await fetchProducts(parseInt(event.target.value), parseInt(selectShow.value));
     setCurrentProducts(products);
@@ -167,6 +193,7 @@ selectPage.addEventListener('change', async (event) => {
     selectSort.value = "...";
 });
 
+// Select Brand
 selectBrand.addEventListener('change', async (event) => {
     let products = await fetchProducts(currentPagination.currentPage, selectShow.value);
 
@@ -182,6 +209,7 @@ selectBrand.addEventListener('change', async (event) => {
     }
 });
 
+// Select Sort by
 selectSort.addEventListener('change', async (event) => {
     switch (event.target.value) {
         case 'price-asc':
@@ -202,6 +230,7 @@ selectSort.addEventListener('change', async (event) => {
     render(currentProducts, currentPagination);
 })
 
+// Button recently released
 document.getElementById('recent').addEventListener('click', function () {
     currentProducts.forEach(product => {
         if ((new Date() - new Date(product.released)) > (24 * 60 * 60 * 1000 * 14)) {
@@ -215,6 +244,7 @@ document.getElementById('recent').addEventListener('click', function () {
     render(currentProducts, currentPagination);
 })
 
+// Button reasonable price
 document.getElementById('reasonable').addEventListener('click', function () {
     currentProducts = currentProducts.filter(item => item.price <= 50);
     render(currentProducts, currentPagination);
