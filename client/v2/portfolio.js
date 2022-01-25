@@ -11,6 +11,7 @@ const selectPage = document.querySelector('#page-select');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
 const selectBrand = document.querySelector('#brand-select');
+const selectSort = document.querySelector('#sort-select');
 
 /**
  * Set global value
@@ -139,6 +140,7 @@ selectShow.addEventListener('change', event => {
     fetchProducts(1, parseInt(event.target.value))
         .then(setCurrentProducts)
         .then(() => render(currentProducts, currentPagination));
+    selectSort.value = "...";
 });
 /*selectShow.addEventListener('change', async (event) => {
     const products = await fetchProducts(currentPagination.currentPage, parseInt(event.target.value));
@@ -162,6 +164,7 @@ selectPage.addEventListener('change', async (event) => {
     const products = await fetchProducts(parseInt(event.target.value), parseInt(selectShow.value));
     setCurrentProducts(products);
     render(currentProducts, currentPagination);
+    selectSort.value = "...";
 });
 
 selectBrand.addEventListener('change', async (event) => {
@@ -178,6 +181,26 @@ selectBrand.addEventListener('change', async (event) => {
         render(currentProducts, currentPagination);
     }
 });
+
+selectSort.addEventListener('change', async (event) => {
+    switch (event.target.value) {
+        case 'price-asc':
+            currentProducts = currentProducts.sort((a, b) => { return a.price - b.price; });
+            break;
+        case 'price-desc':
+            currentProducts = currentProducts.sort((a, b) => { return b.price - a.price; });
+            break;
+        case 'date-asc':
+            currentProducts = currentProducts.sort((a, b) => { return new Date(a.released) - new Date(b.released); });
+            break;
+        case 'date-desc':
+            currentProducts = currentProducts.sort((a, b) => { return new Date(b.released) - new Date(a.released); });
+            break;
+        default:
+            break;
+    }
+    render(currentProducts, currentPagination);
+})
 
 document.getElementById('recent').addEventListener('click', function () {
     currentProducts.forEach(product => {
