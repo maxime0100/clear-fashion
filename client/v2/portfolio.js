@@ -18,6 +18,10 @@ const spanp90 = document.querySelector('#p90');
 const spanp95 = document.querySelector('#p95');
 const spanLastReleased = document.querySelector('#lastReleased');
 
+
+// regarder comment faire un checkbox pour les favoris
+
+
 /**
  * Set global value
  * @param {Array} result - products to display
@@ -67,6 +71,7 @@ const renderProducts = products => {
         <span>${product.brand}</span>
         <a href="${product.link}" target="_blank">${product.name}</a>
         <span>${product.price}</span>
+        <button id="favorite">Add to favorite</button>
       </div>
     `;
         })

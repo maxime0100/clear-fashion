@@ -8,21 +8,28 @@ const cheerio = require('cheerio');
  */
 const parse = data => {
   const $ = cheerio.load(data);
+    
+    return $('.productList') // document.querySelectorAll('.productList')
+        .map((i, element) => {
+            const name = $(element)
+                .find('.productList-title')
+                .text()
+                .trim()
+                .replace(/\s/g, ' ');
 
-  return $('.productList-container .productList')
-    .map((i, element) => {
-      const name = $(element)
-        .find('.productList-title')
-        .text()
-        .trim()
-        .replace(/\s/g, ' ');
+            const link = `https://www.dedicatedbrand.com${$(element)
+                .find('.productList-link')
+                .attr("href")}`;
+
+            const picture = $(element).find('.productList-image img').attr('data-src');
+
       const price = parseInt(
         $(element)
           .find('.productList-price')
           .text()
-      );
-
-      return {name, price};
+        );
+        const brand = 'dedicated'
+      return {brand, name, price, link, picture};
     })
     .get();
 };
