@@ -2,6 +2,7 @@
 const dedicatedbrand = require('./sources/dedicatedbrand');
 const montlimar = require('./sources/montlimart');
 
+const fs = require('fs');
 
 // obtenir le bon nombre de pages 
 
@@ -14,9 +15,15 @@ const montlimar = require('./sources/montlimart');
                 const products = await dedicatedbrand.scrape(eshop + '?p=' + i);
                 console.log(products);
                 i++;
-                if (products.length <= 1) {ok=false}
+                if (products.length <= 1) { ok = false }
+
+                var prod = products.flat();
+                var json = JSON.stringify(prod);
+
             }
             while (ok);
+            fs.writeFileSync('products.json', json);
+
             console.log('done');
 
             process.exit(0);
@@ -30,7 +37,12 @@ async function sandbox2(eshop = 'https://www.montlimart.com/fabrique-en-france.h
         console.log(`🕵️‍♀️  browsing ${eshop} source`);
         const products = await montlimar.scrape(eshop);
         console.log(products);
+
         console.log('done');
+        var prod = products.flat();
+        var json = JSON.stringify(prod);
+
+        fs.writeFileSync('products.json', json);
 
         process.exit(0);
     } catch (e) {
