@@ -2,11 +2,11 @@ require('dotenv').config();
 const {MongoClient} = require('mongodb');
 const fs = require('fs');
 
-const MONGODB_DB_NAME = 'clearfashion';
+const MONGODB_DB_NAME = 'clear-fashion';
 const MONGODB_COLLECTION = 'products';
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = "mongodb+srv://maxime0100:Guitare60@cluster0.nbakx.mongodb.net/Cluster0?retryWrites=true&w=majority";
 
-let client = null;
+let client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 let database = null;
 
 /**
@@ -60,6 +60,7 @@ module.exports.insert = async products => {
  * @param  {Array}  query
  * @return {Array}
  */
+let query = { 'price': { $gt: 20 } };
 module.exports.find = async query => {
   try {
     const db = await getDB();
