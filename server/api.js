@@ -52,13 +52,17 @@ app.get('/products/:id', (request, response) => {
     });
 });
 
-app.get('/products/search?limit', (request, response) => {
+app.get('/search', (request, response) => {
     client.connect(async err => {
-        // perform actions on the collection object
+
+        let brand = request.query.brand;
+        let price = request.query.price;
+        let limit = request.query.limit;
+        
 
         const db = client.db(MONGODB_DB_NAME);
         const collection = db.collection('products');
-        const result = await collection.find({ 'brand': request.param('limit') }).toArray();
+        const result = await collection.find({ 'brand': brand }, { 'price': { $lte: price } }).toArray();
         console.log(result);
         response.send(result);
         client.close();
