@@ -25,6 +25,13 @@ app.get('/', (request, response) => {
   response.send({'ack': true});
 });
 
+app.get('/products', (request, response) => {
+    const db = client.db(MONGODB_DB_NAME);
+    const collection = db.collection('products');
+    const result = await collection.find({ 'brand': 'montlimart' }).toArray();
+    console.log(result);
+    response.send(result);
+    client.close();});
 
 app.get('/products/brand/:brand', (request, response) => {
     client.connect(async err => {
